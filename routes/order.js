@@ -1,0 +1,10 @@
+const express = require('express');
+const router = express.Router();
+const oders = require('../controller/oders');
+var md_auth = require('../middleware/authenticated');
+router.post('/add-order', oders.addOrders);
+router.get('/get-order', oders.getOrders);
+router.get('/get-TotalOrder:companyId?', oders.totalOrder);
+router.get('/get-orderbyemployeeId', md_auth.ensureManagerAuth, oders.getOrderByEmployeeId);
+router.get('/get-orderbycompanyId', md_auth.ensureManagerAuth, oders.getOrderByCompanyId);
+module.exports = router;

@@ -1,0 +1,16 @@
+const express = require('express');
+const router = express.Router();
+const products = require('../controller/getProducts');
+var md_auth = require('../middleware/authenticated');
+const multer = require('multer');
+const upload = multer({ dest: 'image/' });
+router.get('/get-allemployeeproducts', products.getAllEmployeeProducts);
+router.post('/add-products', upload.single('image'), products.addProducts);
+router.patch('/update-product/:id', products.updateProduct);
+router.get('/get-all-products', products.getAllProducts);
+router.patch('/update-product/:id', products.updateCompanyProduct);
+router.delete('/delete-product/:id', products.deleteProduct);
+router.get('/get-getemployeeproductbycompanyId', products.getEmployeeProductByCompanyId);
+router.get('/get-productsbycompanyId', products.getProductsByCompanyId);
+router.get('/get-productsbyemployeeId', md_auth.ensureEmployeeAuth, products.getProductsByEmployeeId);
+module.exports = router;
